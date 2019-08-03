@@ -1,7 +1,7 @@
 package com.endava.controller;
 
 import com.endava.model.Student;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +24,15 @@ public class studentController {
     public ModelAndView showStudent(@Valid @ModelAttribute Student student, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            ModelAndView modelAndViewForm = new ModelAndView("form");
-            return modelAndViewForm;
+            ModelAndView modelAndView = new ModelAndView("form");
+            return modelAndView;
         }
         ModelAndView modelAndView = new ModelAndView("ShowStudentInformation");
         modelAndView.addObject("result",student);
         return modelAndView;
+    }
+    @ModelAttribute
+    public void addCommonObject(Model model){
+        model.addAttribute("MyCustomMessage","My homework for Spring MVC!");
     }
 }
